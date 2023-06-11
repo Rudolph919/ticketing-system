@@ -24,10 +24,6 @@ class RolesAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'edit-user']);
         Permission::create(['name' => 'delete-user']);
         Permission::create(['name' => 'view-user']);
-        Permission::create(['name' => '']);
-        Permission::create(['name' => '']);
-        Permission::create(['name' => '']);
-        Permission::create(['name' => '']);
 
         $superAdminRole = Role::create(['name' => 'Super Admin']);
         $adminRole = Role::create(['name' => 'Admin']);
@@ -35,21 +31,31 @@ class RolesAndPermissionSeeder extends Seeder
         $customerRole = Role::create(['name' => 'Customer']);
 
         $superAdminRole->givePermissionTo([
-
+            'create-ticket',
+            'edit-ticket',
+            'view-ticket',
+            'resolve-ticket',
+            'delete-ticket',
+            'create-user',
+            'edit-user',
+            'delete-user',
+            'view-user',
         ]);
 
         $adminRole->givePermissionTo([
             'create-ticket',
             'edit-ticket',
+            'view-ticket',
             'resolve-ticket',
             'delete-ticket',
+            'view-user'
         ]);
 
         $supportRole->givePermissionTo([
             'create-ticket',
             'edit-ticket',
             'view-ticket',
-            'resolve-ticket'
+            'resolve-ticket',
         ]);
 
         $customerRole->givePermissionTo([
