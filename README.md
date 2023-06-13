@@ -23,18 +23,18 @@ The support agent login details is as follows:
 [
     'name' => 'Jane Smith',
     'email' => 'janesmith@tickets.com',
-    'password' => Hash::make('password2'),
+    'password' => password2,
     'role' => 'support agent',
 ],
 [
     'name' => 'Chuck Norris',
     'email' => 'chucknorris@tickets.com',
-    'password' => Hash::make('password3'),
+    'password' => password3,
     'role' => 'support agent',
 ],
 [
     'name' => 'Support Agent 1',
     'email' => 'supportagent1@tickets.com',
-    'password' => Hash::make('password6'),
+    'password' => password6,
     'role' => 'support agent',
 ],
