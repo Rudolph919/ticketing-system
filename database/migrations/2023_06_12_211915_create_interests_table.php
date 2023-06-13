@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('interests', function (Blueprint $table) {
             $table->id();
-            $table->integer('personal_details_id');
-            $table->string('interest');
+            $table->string('name');
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->integer('personal_details_id');
+            $table->integer('personal_detail_id');
             $table->integer('interest_id');
             $table->string('document_name');
             $table->string('file_path')->nullable();

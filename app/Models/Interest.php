@@ -12,17 +12,16 @@ class Interest extends Model
     use HasFactory;
 
     protected $fillable = [
-        'personal_detail_id',
-        'interest',
+        'name',
     ];
 
     public function personalDetails()
     {
-        return $this->belongsToMany(PersonalDetail::class, 'interest_personal_detail', 'interest_id', 'personal_detail_id');
+        return $this->belongsToMany(PersonalDetail::class);
     }
 
     public function documents()
     {
-        return $this->hasMany(Document::class, 'personal_detail_id');
+        return $this->hasMany(Document::class);
     }
 }

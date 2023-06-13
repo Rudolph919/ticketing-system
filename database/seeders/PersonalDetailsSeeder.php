@@ -13,11 +13,11 @@ class PersonalDetailsSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run()
     {
-        // List of interest types
         $interestTypes = [
-            'Sport',
+            // List of 15 or more different interest types
+            'Sports',
             'Fishing',
             'Gardening',
             'Animals',
@@ -41,53 +41,49 @@ class PersonalDetailsSeeder extends Seeder
             'Surfing',
         ];
 
-        // Generate 50
-        for ($i = 1; $i <= 50; $i++) {
-            $person = PersonalDetail::factory()->create();
+        $interestsToSkip = ['Sport', 'Fishing'];
 
-            // Generate random number of interests (min 3 and max 12)
-            $interestCount = rand(3, 12);
+        PersonalDetail::factory()
+            ->count(50)
+            ->create()
+            ->each(function ($person) use ($interestTypes, $interestsToSkip) {
+                $interestCount = rand(3, 12);
+                $interests = [];
 
-            // Generate interests for the person
-            $interests = [];
-            while (count($interests) < $interestCount) {
-                $interestType = $interestTypes[rand(0, count($interestTypes) - 1)];
+                while (count($interests) < $interestCount) {
+                    $interestType = $interestTypes[rand(0, count($interestTypes) - 1)];
 
-                // Skip if interest type is 'Sport' or 'Fishing'
-                if ($interestType === 'Sport' || $interestType === 'Fishing') {
-                    continue;
-                }
+                    if (in_array($interestType, $interests) || in_array($interestType, $interestsToSkip)) {
+                        continue;
+                    }
 
-                // Skip if interest type already added
-                if (in_array($interestType, $interests)) {
-                    continue;
-                }
+                    $interests[] = $interestType;
 
-                $interests[] = $interestType;
+                    $interest = Interest::create([
+                        'name' => $interestType
+                    ]);
 
-                $interest = Interest::create([
-                    'personal_details_id' => $person->id,
-                    'interest' => $interestType
-                ]);
+                    $person->interests()->attach($interest->id);
 
-                // Generate multiple documents for Gardening, Animals or Children interests
-                if ($interestType === 'Gardening' || $interestType === 'Animals' || $interestType === 'Children') {
-                    $documentCount = rand(0, 3); // Random number of documents (0 to 3)
+                    if (in_array($interestType, ['Gardening', 'Animals', 'Children'])) {
+                        $documentCount = rand(0, 3);
 
-                    for ($j = 1; $j <= $documentCount; $j++) {
-                        // Determine whether the document is linked or not (60% success rate)
-                        $isLinked = (rand(1, 100) <= 60);
+                        for ($i = 1; $i <= $documentCount; $i++) {
+                            $isLinked = (rand(1, 100) <= 60);
 
-                        Document::create([
-                            'personal_details_id' => $person->id,
-                            'interest_id' => $interest->id,
-                            'document_name' => 'Document '.$j.' for '.$interestType,
-                            'file_path' => $isLinked ? 'https://example.com/documents/'.uniqid().'.pdf' : null,
-                        ]);
+                            $documentName = 'Document ' . $i . ' for ' . $interestType;
+                            $filePath = $isLinked ? 'https://example.com/documents/' . uniqid() . '.pdf' : null;
+
+                            $person->documents()->create([
+                                'personal_detail_id' => $person->id,
+                                'interest_id' => $interest->id,
+                                'document_name' => $documentName,
+                                'file_path' => $filePath,
+                            ]);
+                        }
                     }
                 }
-            }
-        }
+            });
     }
 
 

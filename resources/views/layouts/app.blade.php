@@ -32,15 +32,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('reports.index') }}">Ticket Reports</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('query.index') }}">Complex Query</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('file.index') }}">File Manipulation</a>
-                        </li>
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('reports.index') }}">Ticket Reports</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('query.index') }}">Complex Query</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('file.index') }}">File Manipulation</a>
+                            </li>
+                        @endauth
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->

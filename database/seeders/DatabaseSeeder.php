@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             TicketCategorySeeder::class,
             TicketStatusSeeder::class,
+            InterestSeeder::class,
+            DocumentsSeeder::class,
             TicketSeeder::class,
             PersonalDetailsSeeder::class,
         ]);
