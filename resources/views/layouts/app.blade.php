@@ -15,6 +15,8 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    @stack('scripts')
 </head>
 <body>
     <div id="app">
@@ -30,7 +32,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('reports.index') }}">Ticket Reports</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('query.index') }}">Complex Query</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('file.index') }}">File Manipulation</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -73,6 +83,7 @@
         </nav>
 
         <main class="py-4">
+            @include('includes.messages')
             @yield('content')
         </main>
     </div>
